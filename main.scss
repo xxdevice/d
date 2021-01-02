@@ -1,0 +1,460 @@
+* {
+    font-family: "Hiragino Sans", "Hiragino Kaku Gothic ProN","Meiryo UI","Yu Gothic UI", "MS PGothic", sans-serif;
+}
+a {
+    color : inherit;
+    text-decoration : none;
+}
+#app {
+    max-width: 100%;
+}
+#nav {
+    float: left;
+    display: block;
+}
+.navi-fix {
+    max-width: 100px;
+    width: 100%;
+    position: fixed;
+    left:0;
+    top:0;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    @media screen and (max-width: 1199px) {
+        max-width: 70px;
+    }
+    @media screen and (max-width: 991px) {
+        max-width: 50px;
+    }
+    @media screen and (max-width: 768px) {
+        flex-direction: row;
+        height: 50px;
+        max-width: 100%;
+        width: 100%;
+        top:auto;
+        bottom:0;
+        left: 0;
+    }
+    input {
+        display: none;
+    }
+    label,a {
+        display: block;
+        height: 100%;
+        color: white;
+        background: #191919;
+        &:hover {
+            color: #191919;
+            background: #c7ddd8;
+            opacity: 0.8;
+            @media screen and (max-width: 768px) {
+                opacity: 1;
+            }
+        }
+    }
+
+    input:checked + label {
+        color: #191919;
+        background: #c7ddd8;
+    }
+    .fgrow1 {
+        height: 25%;
+        @media screen and (max-width: 768px) {
+            height: 50px;
+            width: 25%;
+        }
+    }
+    .fgrow2 {
+        height: 50%;
+        @media screen and (max-width: 768px) {
+            height: 50px;
+            width: 50%;
+        }
+    }
+}
+.nav_tab {
+    height: 100%;
+    vertical-align: middle;
+    text-align: center;
+    position: relative;
+    p {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        &.icon {
+            font-size: 40px;
+            -webkit-transform : translate(-50%,-120%);
+            transform: translate(-50%,-120%);
+            @media screen and (max-width: 1199px) {
+                font-size: 30px;
+            }
+            @media screen and (max-width: 991px) {
+                font-size: 25px;
+            }
+            @media screen and (max-width: 768px) {
+                -webkit-transform : translate(-50%,-70%);
+                transform: translate(-50%,-70%);
+            }
+            
+        }
+        &.text {
+            font-size: 15px;
+            -webkit-transform : translate(-50%,-30%);
+            transform: translate(-50%,-30%);
+            @media screen and (max-width: 1199px) {
+                font-size: 13px;
+            }
+            @media screen and (max-width: 991px) {
+                
+                -webkit-transform : translate(-50%,-10%);
+                transform: translate(-50%,-10%);
+            }
+            @media screen and (max-width: 768px) {
+                -webkit-transform : translate(-50%,60%);
+                transform: translate(-50%,60%);
+            }
+        }
+        .fa-layers-counter {
+            font-size: 12px;
+            -webkit-transform : translate(55%, -35%);
+            transform: translate(55%, -35%);
+        }
+    }
+}
+
+
+#main {
+    margin-left: 100px;
+
+    @media screen and (max-width: 1199px) {
+        margin-left: 70px;
+    }
+    @media screen and (max-width: 991px) {
+        margin-left: 50px;
+    }
+    @media screen and (max-width: 768px) {
+        margin-left: 0px;
+    }
+}
+#container {
+    .header {
+        position: fixed;
+        background: #eaeaea;
+        border-bottom: 2px solid #191919;
+        width: 100%;
+        top: 0;
+    }
+    .page {
+        display: flex;
+        flex-wrap: wrap;
+        flex-direction: row;
+        margin: 0px 10px ;
+        @media screen and (max-width: 768px) {
+            margin: 0px 5px ;
+        }
+        .card {
+            flex-basis: 50%;
+            margin-bottom: 20px;
+            flex-grow: 1;
+            .card_in {
+                padding: 0 10px 0;
+                @media screen and (max-width: 991px) {
+                    padding: 0 5px 0;
+                }
+                .border {
+                    padding: 0 10px ;
+                    background: #e3e3e3;
+                    border: 1px solid #cccccc;
+                    @media screen and (max-width: 991px) {
+                        padding: 0 5px;
+                    }
+                }
+                .ranks {
+                    display: flex;
+                    flex-wrap: wrap;
+                    justify-content: space-around;
+                    .rank {
+                        flex-basis: 32%;
+                        @media screen and (max-width: 991px) {
+                            flex-basis: 50%;
+                        }
+                        .info {
+                            padding: 10px 5px;
+                            @media screen and (max-width: 768px) {
+                                padding: 5px;
+                            }
+                        }
+                        &.a-a {
+                            flex-basis: 100%;
+                        }
+                        @media screen and (max-width: 768px) {
+                            flex-basis: 100%;
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    #sheat .header {
+        height: 50px;
+        line-height: 50px;
+        padding-left: 20px;
+        &+.page {
+            padding-top: 80px;
+        }
+        @media screen and (max-width: 768px) {
+            padding-left: 10px;
+        }
+    }
+    #create .header {
+        height: 70px;
+        line-height: 25px;
+        padding: 0px;
+        padding: 5px;
+        &+.page {
+            padding-top: 100px;
+        }
+        @media screen and (max-width: 768px) {
+            padding-left: 10px;
+        }
+    }
+    #finish .header {
+        position: relative;
+        height: 50px;
+        line-height: 50px;
+        padding-left: 20px;
+        text-align: center;
+        &+.page {
+            padding-top: 80px;
+        }
+    }
+    #finish .border {
+        padding-top: 10px;
+    }
+    @media screen and (max-width: 768px) {
+        #create .page .card, #finish .page .card {
+            flex-basis: 100%;
+        }
+    }
+
+    
+}
+@media screen and (max-width: 768px) {
+    .aⅩⅤa ,.aⅩa ,.aⅤa, .aⅠa {
+        display: none;
+    }
+}
+.sheat_dev_checkbox {
+    display: none;
+}
+.sheat_dev_checkbox:checked + .open_other {
+    display: none;
+}
+.sheat_dev_checkbox:checked  ~ .rank {
+    display: block !important;
+}
+.none {
+    display: none;
+}
+.active {
+    display: block !important;
+}
+
+.open_other {
+    background: #0099e4;
+    color: #fff;
+    display: none;
+    @media screen and (max-width: 768px) {
+        display: block;
+        width: 100%;
+        height: 20px;
+        line-height: 20px;
+        text-align: center;
+        margin-bottom: 3px;
+    }
+}
+
+.name,.level {
+    font-size: 20px;
+    text-align: center;
+    @media screen and (max-width: 1199px) {
+        font-size: 18px;
+    }
+    @media screen and (max-width: 991px) {
+        font-size: 16px;
+    }
+    @media screen and (max-width: 768px) {
+        font-size: 15px;
+        font-weight: 300;
+    }
+}
+.level {
+    margin-bottom: 4px;
+}
+.addBtn {
+    font-size: 17px;
+}
+.name {
+    height: 50px;
+    line-height: 50px;
+
+    @media screen and (max-width: 991px) {
+        height: 40px;
+        line-height: 40px;
+    }
+    @media screen and (max-width: 768px) {
+        height: 30px;
+        line-height: 30px;
+    }
+}
+.info_text {
+    padding-left: 2px;
+    font-size: 14px;
+}
+p {
+    margin: 0;
+}
+footer {
+    margin:  20px;
+
+    @media screen and (max-width: 768px) {
+        padding-bottom: 50px;
+    }
+    .link {
+        color: blue;
+        &:hover {
+            opacity: 0.8;
+            @media screen and (max-width: 768px) {
+                opacity: 1;
+            }
+        }
+    }
+}
+    
+.tb_br {
+    display: none;
+    @media screen and (max-width: 1024px) {
+        display: inline-block;
+    }
+}
+.sp_br {
+
+    display: none;
+    @media screen and (max-width: 820px) {
+        display: block;
+    }
+}
+.sp_none {
+    display: inline-block;
+    @media screen and (max-width: 820px) {
+        display: none;
+    }
+}
+
+table {
+    border-collapse: separate;
+    table-layout: auto;
+    width: 100%;
+
+    th.state {
+        width: 60px;
+    }
+    thead th {
+        border-bottom: 2px solid #0099e4;
+        /*#d31c4a */
+        color: #0099e4;
+    }
+    td,th {
+        padding: 0 8px;
+        line-height: 25px;
+        @media screen and (max-width: 820px) {
+            padding: 0 4px;
+            line-height: 25px;
+        }
+    }
+
+    tbody tr {
+        td,th {
+            border-bottom: 1px solid #ccc;
+            transition: all 0.4s;
+            padding: 5px 0px;
+            @media screen and (max-width: 820px) {
+                padding: 3px 0px;
+            }
+        }
+        td.button,td.state {
+            text-align: center;
+        }
+    }
+    .leftside {
+        text-align: left;
+    }
+    td.button {
+        width: 20px;
+    }
+    .t_sp {
+        display: none;
+    }
+    .t_pc {
+        display: table-cell;
+    }
+    @media screen and (max-width: 820px) {
+        .t_pc {
+            display: none;
+        }
+        .t_sp {
+            display: table-cell;
+        }
+        .name {
+            width: 100%;
+            text-align: center;
+        }
+        .tips {
+            font-size: 13px;
+            font-weight: bold;
+        }
+    }
+}
+
+tbody tr.done td,
+tbody tr.done th {
+    background: #f8f8f8;
+    color: #bbb;
+}
+
+tbody tr:hover td,
+tbody tr:hover th {
+    background: #f4fbff;
+}
+
+button,
+input[type=button] {
+    margin: 5px;
+    border: none;
+    border-radius: 20px;
+    line-height: 24px;
+    padding: 0 8px;
+    background: #0099e4;
+    color: #fff;
+    cursor: pointer;
+}
+
+.inline-b {
+    display: inline-block;
+}
+
+ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+
+li {
+    margin: 0;
+}
+
+.state button {
+    margin: 5px 0;
+}

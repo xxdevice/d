@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-N8KR9S0EYH"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+
+    function gtag() {
+      dataLayer.push(arguments);
+    }
+    gtag('js', new Date());
+
+    gtag('config', 'G-N8KR9S0EYH');
+  </script>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:site" content="@vtytvm" />
+  <link rel="icon" href="./favicon.ico" type="image/x-icon">
+  <meta property="og:url" content="https://xx-device.herokuapp.com/" />
+  <meta property="og:title" content="XenobladeXデバイスリスト" />
+  <meta property="og:site_name" content="XenobladeXデバイスリスト" />
+  <meta property="og:description" content="ゼノブレイドクロスでデバイス作る時、少し役に立つかもしれないツールを置いておきます。" />
+  <meta property="og:image"  content="https://xx-device.herokuapp.com/img_ss.jpg" />
+  
+  <title>XenobladeXデバイスリスト</title>
+  <link rel="stylesheet" href="./reset.css">
+  <link rel="stylesheet" href="./main.css">
+  <!-- <script defer src="https://use.fontawesome.com/releases/v5.8.1/js/all.js"
+    integrity="sha384-g5uSoOSBd7KkhAMlnQILrecXvzst9TdC09/VM+pjDTCM+1il8RHz5fKANTFFb+gQ" crossorigin="anonymous">
+  </script> -->
+  <!-- <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous"> -->
+</head>
+
+<body>
+  <div class="container">
+    <div id="app">
+      <div id="nav">
+        <div class="navi-fix">
+          <input type="radio" id="tab1" name="tab" value="-1" v-model="current"
+            v-on:click='isSheat=true,isCreate=false,isFinish=false'>
+          <label class="fgrow2" for="tab1">
+            <div class="nav_tab">
+              <p class="icon"><i class="fas fa-grip-horizontal"></i></p>
+              <p class="text">一覧</p>
+            </div>
+          </label>
+          <input type="radio" id="tab2" name="tab" value="0" v-model="current"
+            v-on:click='isSheat=false,isCreate=true,isFinish=false'>
+          <label class="fgrow1" for="tab2">
+            <div class="nav_tab">
+              <p class="icon"><i class="fas fa-list-ul"></i>
+                <!-- ↓条件によってだしたり出さないようにすること -->
+
+                <span v-if="computedCreate.length != 0" class="fa-layers-counter"
+                  style="background:Tomato">{{ computedCreate.length }}</span>
+                <!-- ↑条件によってだしたり出さないようにすること -->
+              </p>
+              <p class="text">作成中</p>
+            </div>
+          </label>
+
+          <input type="radio" id="tab3" name="tab" value="1" v-model="current"
+            v-on:click='isSheat=false,isCreate=false,isFinish=true'>
+          <label class="fgrow1" for="tab3">
+            <div class="nav_tab">
+              <p class="icon"><i class="fas fa-check-circle"></i></p>
+              <p class="text">済み</p>
+              <span></span>
+            </div>
+          </label>
+        </div>
+      </div>
+
+      <div id="main">
+        <div id="container">
+          <!-- デバイスリスト -->
+          <section class="none" v-bind:class='{active:isSheat}' id="sheat">
+            <form class="add-form" v-on:submit.prevent="doAdd">
+              <div class="header">
+                <label for=""><span class="sp_none">検索</span>
+                  <input type="search" list="devices" v-model="keyword" placeholder="デバイス名を入力" autocomplete="on">
+                  <datalist id="devices">
+                    <option v-for="item in devices" v-bind:value=item.device v-bind:label=item.type[0].tips>
+                      {{item.device}}</option>
+                  </datalist>
+
+                  <input type="search" list="materials" v-model="mtr_name" placeholder="素材名から検索" autocomplete="on">
+                  <!-- <datalist id="materials">
+                <option v-for="item in materials" v-bind:value=item.material >{{item.material}}</option>
+              </datalist> -->
+                </label>
+              </div>
+              <div class="page">
+                <article class="card" v-for="(device, dev_i) in matcheMaterial">
+                  <div class="card_in">
+                    <div class="border">
+                      <p class="name">{{device.device}}</p>
+                      <div class="ranks">
+                        <template v-for="(item, i) in device.type" :key="item.id">
+                          <div class="rank" :class="'a'+item.rank+'a'">
+                            <div class="info">
+                              <p class="level">{{item.rank}} <input class="addBtn" type="button"
+                                  v-on:click="doAdd(device,item)" value="追加"></p>
+                              <p class="info_text">{{item.tips}}</p>
+                              <br>
+                              <p class="info_text" v-for="(mtr,i) in item.materials">{{item.materials[i]}}
+                                {{item.material_num[i]}}コ</p>
+                            </div>
+                          </div>
+                          <template v-if="i == 0 && item.rank !== '-'">
+                            <input class="sheat_dev_checkbox" type="checkbox" :id="'sheat_dev_check_'+dev_i">
+                            <label class="open_other" :for="'sheat_dev_check_'+dev_i">全表示</label>
+                          </template>
+                        </template>
+                      </div>
+                    </div>
+                  </div>
+                </article>
+              </div>
+            </form>
+          </section>
+          <section class="none" v-bind:class='{active:isCreate}' id="create">
+            <div class="header">
+              <p>{{ computedCreate.length }} 件 チケット:{{ computedTiketSum }},ミラニウム:{{computedMiraCost}}
+                端末{{ computedOrbit }}周分です。<br>{{computedResource}}</p>
+            </div>
+            <div class="page">
+              <article class="card" v-for="item in computedCreate" v-bind:key="item.id" v-bind:id="'item-'+item.id"
+                v-bind:class="{done:item.state}">
+                <div class="card_in">
+                  <div class="border">
+                    <p>{{item.cate}}
+                      <!-- ★STEP10 状態変更ボタン -->
+                      <button v-on:click="doChangeState(item)">
+                        製作済み
+                      </button>
+                    </p>
+
+                    <span class="device">{{item.device}}{{item.comment.rank}}</span>
+                    <p v-for="(mt, index) in item.comment.materials">
+                      <br>
+                      <label v-if="materials[mt]" :id="'ticket-'+item.id+'-'+index">
+                        <input type="checkbox" v-bind:value="item.id+'-'+index" v-model="tickets">
+                        <span class="material" v-text="mt"></span>
+                        <span v-text="item.comment.material_num[index]+'コ'"></span>({{item.comment.ticket[index]}})
+                        <span v-if="materials[mt]" v-text="'ﾄﾞﾛｯﾌ:ﾟ'+materials[mt].break"></span>
+                        <br>
+                        <span class="tips" v-if="materials[mt]">{{materials[mt].info}}</span></label>
+                    </p>
+                    <p class="others">
+                      <br>
+                      <span v-text="item.comment.rsrc"></span>
+                      <span> </span>
+                      <span v-text="item.comment.rsrc_num"></span>
+                      <span> ミラニウム:</span>
+                      <span id="mira-cost" v-text="item.comment.cost"></span><br>
+                      <span> 最大必要枚数:</span>
+                      <span id="mira-cost" v-text="sumsTickets(item.comment.ticket)"></span>
+                    </p>
+                    <!-- ★STEP10 削除ボタン -->
+                    <button v-on:click="doRemove(item)">
+                      削除
+                    </button>
+                  </div>
+                </div>
+              </article>
+            </div>
+          </section>
+          <section class="none" v-bind:class='{active:isFinish}' id="finish">
+            <div class="header ">
+              <p>製作済みデバイス</p>
+            </div>
+            <div class="page">
+              <article class="card" v-for="item in computedFinish" v-bind:key="item.id" v-bind:id="'item-'+item.id"
+                v-bind:class="{done:item.state}">
+                <div class="card_in">
+                  <div class="border">
+                    <p><span class="device">{{item.device}}{{item.comment.rank}}</span>
+                    <p>{{item.comment.tips}}</p>
+                    <!-- ★STEP10 削除ボタン -->
+                    <p style="text-align: right;">
+                      <button v-on:click="doRemove(item)">
+                        削除
+                      </button>
+                    </p>
+                  </div>
+                </div>
+              </article>
+            </div>
+          </section>
+          <footer>
+            <p style="text-align: center;">一覧が表示されない場合はブラウザを更新してください。<br></p>
+            <p style="text-align: center;">※サーバーの都合上ページが現れるまでに時間がかかることがあります。<br></p>
+            <div>
+              <p>参考文献</p>
+              <p><a class="link" href="https://w.atwiki.jp/xenobladex/pages/39.html">デバイス - XenobladeX (ゼノブレイドクロス) 攻略
+                  @Wiki</a></p>
+              <p><a class="link" href="http://sugimo1998.la.coocan.jp/xenobladex/sozai.htm">ゼノブレイドクロス　素材リスト</a></p>
+            </div>
+          </footer>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+  <script src="./main.js"></script>
+</body>
+
+</html>
