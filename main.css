@@ -347,8 +347,13 @@ a {
   position: relative;
   height: 50px;
   line-height: 50px;
-  padding-left: 20px;
   text-align: center;
+}
+
+@media screen and (max-width: 768px) {
+  #container #finish .header {
+    padding-left: 10px;
+  }
 }
 
 #container #finish .header + .page {
