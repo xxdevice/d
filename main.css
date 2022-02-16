@@ -210,6 +210,12 @@ a {
   top: 0;
 }
 
+@media screen and (max-width: 768px) {
+  #container .header input {
+    width: 45%;
+  }
+}
+
 #container .page {
   display: -webkit-box;
   display: -ms-flexbox;
